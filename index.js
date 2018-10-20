@@ -32,7 +32,7 @@ let App = _ => {
   let wss = WS(config.ws);
 
   bobaos.on("connect", _ => {
-    console.log("connect");
+    logger.info("bobaos sdk: connected");
   });
 
   bobaos.on("error", e => {
@@ -40,12 +40,12 @@ let App = _ => {
   });
 
   bobaos.on("ready", _ => {
-    logger.info("sdk ready");
-    console.log("sdk ready");
+    logger.info("bobaos sdk: ready");
   });
 
   bobaos.on("datapoint value", payload => {
-    logger.info("broadcasted datapoint value: ", payload);
+    logger.info("broadcasting datapoint value: ");
+    logger.info(payload);
     let dataToSend = {};
     dataToSend.method = "datapoint value";
     dataToSend.payload = payload;
@@ -139,10 +139,8 @@ let App = _ => {
     if (req.method === "set value") {
       try {
         res.method = "success";
-        let result = await bobaos.setValue(req.payload);
-        res.payload = result;
+        res.payload = await bobaos.setValue(req.payload);
         res.send();
-        wss.broadcast({method: "datapoint value", payload: result});
       } catch (e) {
         res.method = "error";
         res.payload = e.message;
@@ -207,4 +205,4 @@ let App = _ => {
   });
 };
 
-App();
+module.exports = App;
