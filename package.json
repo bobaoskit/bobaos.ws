@@ -6,6 +6,10 @@
   "bin": {
     "bobaos-ws": "./bin/bobaos-ws.js"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/bobaoskit/bobaos.ws.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
