@@ -1,0 +1,21 @@
+{
+  "name": "bobaos.ws",
+  "version": "1.0.0",
+  "description": "WebSocket interface for bobaos.pub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "baos",
+    "bobaos",
+    "knx"
+  ],
+  "author": "Vladimir Shabunin",
+  "license": "ISC",
+  "dependencies": {
+    "bobaos.sub": "^1.0.1",
+    "myps.logger": "^1.0.7",
+    "ws": "^6.1.0"
+  }
+}

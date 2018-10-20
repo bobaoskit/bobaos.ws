@@ -1,0 +1,16 @@
+{
+  "logs": {
+    "socketFile": "/run/myps/myipc.sock",
+    "channel": "bobaos_ws",
+    "reconTimeout": 5000
+  },
+  "bobaos": {
+    "socketFile": "/run/myps/myipc.sock",
+    "request_channel": "bobaos_req",
+    "broadcast_channel": "bobaos_bcast",
+    "reconTimeout": 5000
+  },
+  "ws": {
+    "port": 49190
+  }
+}
