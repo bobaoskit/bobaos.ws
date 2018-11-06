@@ -1,14 +1,14 @@
 {
   "name": "bobaos.ws",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "WebSocket interface for bobaos.pub",
   "main": "index.js",
   "bin": {
     "bobaos-ws": "./bin/bobaos-ws.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/bobaoskit/bobaos.ws.git"
+    "type": "git",
+    "url": "https://github.com/bobaoskit/bobaos.ws.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,8 +21,7 @@
   "author": "Vladimir Shabunin",
   "license": "ISC",
   "dependencies": {
-    "bobaos.sub": "^1.0.1",
-    "myps.logger": "^1.0.7",
+    "bobaos.sub": "2.0.0",
     "ws": "^6.1.0"
   }
 }

@@ -1,38 +1,17 @@
 const BobaosSub = require("bobaos.sub");
-const Logger = require("myps.logger");
 const WS = require("./lib/ws");
 
 const config = require("./config.json");
 
 let App = _ => {
-  let _loggerConfig = {
-    channel: config.logs.channel,
-    source: "index.js"
-  };
-
-  if (config.logs.socketFile) {
-    _loggerConfig.socketFile = config.logs.socketFile;
-  }
-  let logger = Logger(_loggerConfig);
-
-  logger.on("error", e => {
-    console.log(`Error with logger: ${e.message}`);
-    setTimeout(logger.reconnect, config.logs.reconTimeout);
-  });
-
   console.log("Starting bobaos.ws");
-
-  setTimeout(_ => {
-    console.log("To view real-time logs use following command:");
-    console.log(`$ myps-logviewer -c ${config.logs.channel}`);
-  }, 1000);
 
   let bobaos = BobaosSub(config.bobaos);
 
   let wss = WS(config.ws);
 
   bobaos.on("connect", _ => {
-    logger.info("bobaos sdk: connected");
+    console.log("bobaos sdk: connected");
   });
 
   bobaos.on("error", e => {
@@ -40,12 +19,12 @@ let App = _ => {
   });
 
   bobaos.on("ready", _ => {
-    logger.info("bobaos sdk: ready");
+    console.log("bobaos sdk: ready");
   });
 
   bobaos.on("datapoint value", payload => {
-    logger.info("broadcasting datapoint value: ");
-    logger.info(payload);
+    console.log("broadcasting datapoint value: ");
+    console.log(payload);
     let dataToSend = {};
     dataToSend.method = "datapoint value";
     dataToSend.payload = payload;
@@ -53,7 +32,7 @@ let App = _ => {
   });
 
   bobaos.on("server item", payload => {
-    logger.info("broadcasted server item: ", payload);
+    console.log("broadcasted server item: ", payload);
     let dataToSend = {};
     dataToSend.method = "server item";
     dataToSend.payload = payload;
@@ -61,7 +40,7 @@ let App = _ => {
   });
 
   bobaos.on("sdk state", payload => {
-    logger.info("broadcasted sdk state: ", payload);
+    console.log("broadcasted sdk state: ", payload);
     let dataToSend = {};
     dataToSend.method = "sdk state";
     dataToSend.payload = payload;
@@ -69,7 +48,7 @@ let App = _ => {
   });
 
   wss.on("request", async (req, res) => {
-    logger.debug(req);
+    console.log(req);
     if (req.method === "ping") {
       try {
         res.method = "success";
