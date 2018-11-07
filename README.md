@@ -6,34 +6,40 @@ Bobaos.ws is a service adding WebSocket support to bobaos datapoint sdk.
 
 ## Installation
 
-Installation is performed via npm:
+First, make sure that [bobaos.pub](https://github.com/bobaoskit/bobaos.pub) is installed.
+
+Then, installation is performed via npm:
 
 ```text
 sudo npm install -g bobaos.ws
 ```
 
-Running:
+You can run it:
 
 ```text
-$ bobaos-ws
+pi@pi:~$ bobaos-ws
 Starting bobaos.ws
-To view real-time logs use following command:
-$ myps-logviewer -c bobaos_ws
+bobaos sdk: ready
 ```
 
-Create service file `/etc/systemd/system/bobaos_ws.service:
+Try to send from any websocket client following request on port 49190
+
+```json
+{"request_id": 42, "method": "ping", "payload": null}
+```
+
+If everything is ok, create service file `/etc/systemd/system/bobaos_ws.service:
 
 ```text
 [Unit]
 Description=WebSocket server for bobaos.pub
+After=bobaos_pub.service
 
 [Service]
 User=pi
 ExecStart=/usr/bin/env bobaos-ws
 Restart=on-failure
 RestartSec=10
-# now working dir.
-WorkingDirectory=/run/myps
 
 [Install]
 WantedBy=multi-user.target
@@ -47,7 +53,7 @@ sudo systemctl start bobaos_ws.service
 sudo systemctl enable bobaos_ws.service
 ```
 
-After that, `bobaos.ws` will use port, defined in `/usr/lib/node_modules/bobaos.ws/config.json`, by default it is 49190.
+After that, to configure `bobaos.ws` edit `/usr/lib/node_modules/bobaos.ws/config.json` file.
 
 ## Protocol
 
@@ -118,7 +124,7 @@ Response:
     Send read requests to KNX bus. Keep in mind that datapoint object should have active Update flag.
     If reading was successful then datapoint value will be broadcasted.
     
-* Method: `get server item`. Payload: `null/id/name/[name1, .. nameN]`.
+* Method: `get server item`. Payload: `null/id/[id1, .. idN]`.
 
     Get server items with given id/name/names. To get all server items use `null` as a payload.
     
