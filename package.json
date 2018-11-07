@@ -21,7 +21,7 @@
   "author": "Vladimir Shabunin",
   "license": "ISC",
   "dependencies": {
-    "bobaos.sub": "2.0.0",
+    "bobaos.sub": "^2.0.0",
     "ws": "^6.1.0"
   }
 }
